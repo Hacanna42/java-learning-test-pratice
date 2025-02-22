@@ -572,7 +572,13 @@ public class FunctionalProgrammingTest {
             final var result = 0L;
 
             // -----------------------------------------------------------------
-            assertThat(result).isEqualTo(31_949L);
+            long result2 = Arrays.stream(contents.split("\\P{L}+"))
+                            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                            .values().stream()
+                            .max(Comparator.naturalOrder())
+                            .orElse(0L);
+
+            assertThat(result2).isEqualTo(31_949L);
         }
 
         /**
