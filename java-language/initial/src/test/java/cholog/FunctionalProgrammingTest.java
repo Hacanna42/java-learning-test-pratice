@@ -509,8 +509,13 @@ public class FunctionalProgrammingTest {
             }
 
             // -----------------------------------------------------------------
+            int result2 = numbers.stream()
+                    .filter(number -> number > 2 && number <= 5)
+                    .map(number -> number * 2)
+                    .filter(number -> number > 7)
+                    .reduce(0, Integer::sum);
 
-            assertThat(result).isEqualTo(expected);
+            assertThat(result2).isEqualTo(expected);
         }
 
         /**
