@@ -1,5 +1,6 @@
 package cholog;
 
+import java.util.Arrays;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -445,7 +446,11 @@ public class FunctionalProgrammingTest {
 
             // -----------------------------------------------------------------
 
-            assertThat(count).isEqualTo(1_946);
+            long count2 = Arrays.stream(contents.split("\\P{L}+"))
+                    .filter(word -> word.length() > 12)
+                    .count();
+
+            assertThat(count2).isEqualTo(1_946);
         }
 
         /**
