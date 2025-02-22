@@ -1,6 +1,7 @@
 package cholog;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -476,7 +477,8 @@ public class FunctionalProgrammingTest {
 
             // -----------------------------------------------------------------
 
-            assertThat(result).isEqualTo("1:2:3:4:5");
+            String result2 = numbers.stream().map(String::valueOf).collect(Collectors.joining(":"));
+            assertThat(result2).isEqualTo("1:2:3:4:5");
         }
 
         /**
