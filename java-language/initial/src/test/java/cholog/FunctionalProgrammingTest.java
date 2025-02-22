@@ -135,20 +135,21 @@ public class FunctionalProgrammingTest {
 
             // TODO: 아래 코드를 Comparator를 구현하는 익명 클래스로 변경하여 User의 나이를 기준으로 정렬하세요. 람다로도 구현해보세요.
             final var users = new ArrayList<User>(List.of(brown, neo, brie));
-            users.sort(() -> );
-//            for (int i = 0, end = users.size(); i < end; i++) {
-//                for (int j = i + 1; j < end; j++) {
-//                    if (users.get(i).age() > users.get(j).age()) {
-//                        final var temp = users.get(i);
-//                        users.set(i, users.get(j));
-//                        users.set(j, temp);
-//                    }
-//                }
-//            }
-//
-//            for (final var user : users) {
-//                System.out.println(user.name() + ": " + user.age());
-//            }
+
+            // 람다식으로 구현해보기
+            users.sort((user1, user2) -> user1.age - user2.age);
+            // 혹은 (더 나은 방법, Java 8+)
+            users.sort(Comparator.comparingInt(user -> user.age));
+
+            // 익명 함수로 구현해보기
+            final var comparator = new Comparator<User>() {
+                @Override
+                public int compare(User o1, User o2) {
+                    return Integer.compare(o1.age, o2.age);
+                }
+            };
+
+            users.sort(comparator);
 
             assertAll(
                     () -> assertThat(users).last().isSameAs(neo),
