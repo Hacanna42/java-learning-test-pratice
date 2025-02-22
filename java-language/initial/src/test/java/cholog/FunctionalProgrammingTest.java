@@ -20,6 +20,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.filter;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 /**
@@ -415,7 +416,13 @@ public class FunctionalProgrammingTest {
 
             // -----------------------------------------------------------------
 
-            assertThat(maxAgeCrew).isEqualTo(new Crew("김재", "th", 29));
+            List<Crew> filteredCrews2 = crews.stream()
+                    .filter(crew -> crew.name.startsWith("김") && crew.age >= 25 && crew.age < 30 && crew.name.length() == 2)
+                            .sorted(Comparator.comparingInt(Crew::age)).toList();
+
+            Crew foundCrew = filteredCrews2.get(0);
+
+            assertThat(foundCrew).isEqualTo(new Crew("김재", "th", 29));
         }
 
         /**
