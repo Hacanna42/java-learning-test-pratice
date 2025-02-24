@@ -596,19 +596,27 @@ public class FunctionalProgrammingTest {
         void 피보나치_수열을_선언형으로_구현한다() {
             class Fibonacci {
                 // TODO: 기존에 작성된 피보나치 수열을 구하는 코드에서 선언형으로 변경해봅니다. 가능하면 메서드 내부에 세미콜론을 하나만 사용하여 구현해보세요.
+//                static int solve(final int n) {
+//                    var previous = 0;
+//                    var next = 1;
+//
+//                    // iterate till limit
+//                    for (int i = 0; i < n; i++) {
+//                        int sum = previous + next;
+//
+//                        previous = next;
+//                        next = sum;
+//                    }
+//
+//                    return previous;
+//                }
+
                 static int solve(final int n) {
-                    var previous = 0;
-                    var next = 1;
-
-                    // iterate till limit
-                    for (int i = 0; i < n; i++) {
-                        int sum = previous + next;
-
-                        previous = next;
-                        next = sum;
-                    }
-
-                    return previous;
+                    return Stream.iterate(new int[]{0, 1}, values -> new int[]{values[1], values[0] + values[1]})
+                            .limit(n + 1)
+                            .mapToInt(values -> values[0])
+                            .max()
+                            .orElse(0);
                 }
             }
 
